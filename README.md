@@ -1,4 +1,4 @@
-# OpenCVDocker
+# ROSDocker
 
 This repository contains Dockerfiles and Bash scripts to build simple Computer Vision with OpenCV (Python and C++) and ROS Docker container images for exemplary and educational purposes. 
 
@@ -20,12 +20,12 @@ If your host is equiped with a (recent) NVIDIA graphics card, nvidia-docker is h
 
 ## Structure and usage
 
-The end result of this repository is an Ubuntu 18.04 based OpenCV Docker container.
+The end results of this repository are an OpenCV Docker container and a ROS Docker container based on Ubuntu 18.04 based.
 To differentiate between NVIDIA hosts and normal computers, an intermedate "base" image will be created and used as the fundament for the OpenCV container.
 The provided Bash script `0001_build_images.sh` will automatically build the correct base image (in `01a_nvidia_ubuntu18.04/` or `01b_dri_ubuntu18.04/`) for your system.
-Thereafter the OpenCV container (in `02_opencv/`) will be build. 
+Thereafter the OpenCV Docker image (in `02_opencv/`) and the ROS Docker image (in `03_ros_full_desktop`) will be build. 
 
-A few Python and C++ OpenCV examples reside in the `Projects` directory. 
+A few Python and C++ OpenCV and ROS examples reside in the `Projects` directory. 
 This directory will be used as an volume when running the OpenCV container.
 All the files and directories will be accessible from inside and when the container is destroyed, the files will still be on your host.
 Besides source code the `Projects` directory also contians a few images.
