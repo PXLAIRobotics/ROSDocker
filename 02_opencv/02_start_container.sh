@@ -18,7 +18,7 @@ if [ $vendor == "NVIDIA" ]; then
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \
         -env="XAUTHORITY=$XAUTH" \
         --volume="$XAUTH:$XAUTH" \
-        --runtime=nvidia \
+        --gpus all \
         --device=/dev/video0:/dev/video0 \
         pxl_air_opencv:latest \
         bash

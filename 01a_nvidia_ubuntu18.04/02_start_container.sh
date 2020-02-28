@@ -15,7 +15,7 @@ docker run -it \
     -v `pwd`/../Projects:/home/user/Projects \
     -env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --runtime=nvidia \
+    --gpus all \
     --device=/dev/video0:/dev/video0 \
     pxl_air_base_ubuntu18.04:latest \
     bash
