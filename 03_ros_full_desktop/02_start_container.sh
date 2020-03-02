@@ -17,6 +17,7 @@ if [ $vendor == "NVIDIA" ]; then
         --env="DISPLAY" \
         --env="QT_X11_NO_MITSHM=1" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+        -v `pwd`/../Commands/bin:/home/user/bin \
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \
         -v `pwd`/../Projects/catkin_ws_src:/home/user/Projects/catkin_ws/src \
         -env="XAUTHORITY=$XAUTH" \
@@ -30,6 +31,7 @@ else
         --name ros_full_desktop \
         --hostname basesation \
         --volume=/tmp/.X11-unix:/tmp/.X11-unix \
+        -v `pwd`/../Commands/bin:/home/user/bin \
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \
         -v `pwd`/../Projects/catkin_ws_src:/home/user/Projects/catkin_ws/src \
         --device=/dev/dri:/dev/dri \
