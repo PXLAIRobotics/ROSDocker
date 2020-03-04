@@ -76,7 +76,7 @@ user@476750474b19:~/ExampleCode/Python/Webcam$ python3 webcam.py
 ```
 
 ##### C++ 
-C++ examples must be build before running.
+C++ examples must be built before running.
 
 
 ```bash
