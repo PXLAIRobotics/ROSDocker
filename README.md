@@ -59,17 +59,17 @@ The following commands are execute from with in the OpenCV container.
 ##### Python
 
 ```bash
-user@476750474b19:~$ cd Projects/Python/Examples
-user@476750474b19:~/Projects/Python/Examples$ python3 example1.py 
+user@476750474b19:~$ cd ExampleCode/Python/Examples
+user@476750474b19:~/ExampleCode/Python/Examples$ python3 example1.py 
 
    . . .
    
-user@476750474b19:~/Projects/Python/Examples$ python3 example2.py 
+user@476750474b19:~/ExampleCode/Python/Examples$ python3 example2.py 
 
    . . .
    
-user@476750474b19:~/Projects/Python/Examples$ cd ../Webcam/
-user@476750474b19:~/Projects/Python/Webcam$ python3 webcam.py 
+user@476750474b19:~/ExampleCode/Python/Examples$ cd ../Webcam/
+user@476750474b19:~/ExampleCode/Python/Webcam$ python3 webcam.py 
 
    . . . 
 
