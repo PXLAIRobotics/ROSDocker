@@ -9,7 +9,7 @@ if [ "$swarm_status" = "inactive" ]; then
     exit -1
 fi
 
-echo "The overlay network IP address of the contaier is..."
+echo "The overlay network IP address of the container is..."
 IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ros_full_desktop)
 echo $IP > docker_container_overlay_network_ip.log
 echo $IP
