@@ -131,7 +131,7 @@ Otherwise creating a Docker swarm will not be possible.
 
 One host will work as the master of the Docker swarm all the others will be workers. Use the most network stable machine as the Docker master. Use the strongest machine to run the heaviest load, like Gazebo or certain heavy algorithms.
 
-## 1. Setup the Docker swarm master
+## 1. [ON THE MASTER] Setup the Docker swarm master
 Execute the command below on the most network stable machine. This machine will act as the Docker swarm master.
 
 ```bash
@@ -144,39 +144,24 @@ The command above creates a Swarm master and an overlay network which can be use
 **The output in your terminal will differ!** An unique `join` command will be generated. Execute this generated command on all the other hosts who want to join the swarm.
 
 
-## 2. Add other host machines as workers
-Use the command generated on the Docker master, the previous step, to join the Docker swarm. This command is **unique** for each Docker swarm. Don't just copy and paste the command below! It won't work.
-
-```bash
-$ docker swarm join --token SWMTKN-1-3bid0upa4o7n6ihwjkid6fq9jqc349oskqwl4syo98za51n996-3ht3ogbn8wsmcu8ng29racmxt 192.168.1.183:2377
-This node joined a swarm as a worker.$
-```
-
-## 3. Start a container on the Docker swarm master
+## 2. [ON THE MASTER] Start a container on the Docker swarm master
 Execute the `./0005b_start_ros_container_attached_to_swarm_network.sh` script on the master. It will automatically start the container with the hostname set to `swarm_master`.
 
 
 ```bash
 $ ./0005b_start_ros_container_attached_to_swarm_network.shnon-network local connections being added to access control listuser@swarm_master:~$
 ```
-## 4. Start a container on each Docker swarm worker
-If the same script (`./0005b_start_ros_container_attached_to_swarm_network.sh`) is executed on a worker, it will automatically start a container with a random generated hostname.
 
-
-```bash
-$ ./0005b_start_ros_container_attached_to_swarm_network.shnon-network local connections being added to access control listuser@iqEamTb3P0loQvZ9UQgxkHqRmo0Dku31:~$ 
-```
-
-## 5. Find the overlay network IP address of the Docker swarm master container
+## 3. [ON THE MASTER] Find the overlay network IP address of the Docker swarm master container
 Execute the following script on the master host, not in the container! The IP address can differ!
-We need this IP in Step 7 on each worker. 
+We need this IP in Step 8 on each worker. 
 
 ```bash
 $ ./0005c_container_overlay_network_ip.sh The overlay network IP address of the container is...10.0.1.2
 ``` 
 
 
-## 6. Generate and source the ROS config command for the Docker swarm master
+## 4. [ON THE MASTER] Generate and source the ROS config command for the Docker swarm master
 This step also needs to be executed on the master host, not in the running master container! This script will generate a command.
 There will be no output on the master host!
 
@@ -189,20 +174,8 @@ Switch to the running master container and execute the following command. This c
 
 ```bash
 user@swarm_master:~$ source ~/bin/set_swarm_settings.bash user@swarm_master:~$ ```
-## 7. Generate and source the ROS config command for each Docker swarm worker
-This step also needs to be executed on each worker host, not in the running worker container! This script will generate a command.
-The script will ask for the IP address of the master container. Fill in the IP from Step 5.
 
-```bash
-$ ./0005d_generate_ros_config_command.shIP on overlay network of the master container: 10.0.1.2
-$```
-
-Switch to the running worker container and execute the following command. This command must be executed each time a new `bash` is started using Tmux or the `0004_start_bash_in_ros_container.sh` script.
-
-```bash
-user@swarm_master:~$ source ~/bin/set_swarm_settings.bash user@swarm_master:~$ ```
-
-## 8. Start roscore and/or a Gazebo simulation world
+## 5. [ON THE MASTER] Start roscore and/or a Gazebo simulation world
 On the master container start `roscore` and/or start a Gazebo simulation world. 
 **It's important to check if the IP  from Step 5 is used in the output.** This will indicate if the connection could work or not.
  
@@ -220,7 +193,40 @@ user@swarm_master:~$ roslaunch turtlebot3_racetrack turtlebot3_pxl_race_battle.l
  
 ```
 
-## 9. Test, on the worker, the topics on the command line and/or a video stream in rviz
+
+## 6. [ON EACH WORKER] Add other host machines as workers
+Use the command generated on the Docker master, the previous step, to join the Docker swarm. This command is **unique** for each Docker swarm. Don't just copy and paste the command below! It won't work.
+
+```bash
+$ docker swarm join --token SWMTKN-1-3bid0upa4o7n6ihwjkid6fq9jqc349oskqwl4syo98za51n996-3ht3ogbn8wsmcu8ng29racmxt 192.168.1.183:2377
+This node joined a swarm as a worker.$
+```
+
+## 7. [ON EACH WORKER] Start a container on each Docker swarm worker
+If the same script (`./0005b_start_ros_container_attached_to_swarm_network.sh`) is executed on a worker, it will automatically start a container with a random generated hostname.
+
+
+```bash
+$ ./0005b_start_ros_container_attached_to_swarm_network.shnon-network local connections being added to access control listuser@iqEamTb3P0loQvZ9UQgxkHqRmo0Dku31:~$ 
+```
+
+
+
+## 8. [ON EACH WORKER] Generate and source the ROS config command for each Docker swarm worker
+This step also needs to be executed on each worker host, not in the running worker container! This script will generate a command.
+The script will ask for the IP address of the master container. Fill in the IP from Step 3.
+
+```bash
+$ ./0005d_generate_ros_config_command.shIP on overlay network of the master container: 10.0.1.2
+$```
+
+Switch to the running worker container and execute the following command. This command must be executed each time a new `bash` is started using Tmux or the `0004_start_bash_in_ros_container.sh` script.
+
+```bash
+user@swarm_master:~$ source ~/bin/set_swarm_settings.bash user@swarm_master:~$ ```
+
+
+## 9. [ON EACH WORKER] Test, on the worker, the topics on the command line and/or a video stream in rviz
 Go to a worker container. If you followed the previous steps, all containers will be to communicate. You can test this with `rostopic list` or start `rviz` and add the camera topic. Be amazed with the video stream working over the network.
 
 ```bash
