@@ -11,6 +11,7 @@ RUN apt-get update \
         && apt-get install -y ros-melodic-desktop-full \
         && apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential \
         && apt-get install -y ros-melodic-turtlebot3* \
+        && apt-get install -y python-rosdep \
         && rosdep init \
         && apt-get autoremove -y \
         && rm -rf /var/lib/apt/lists/* 
