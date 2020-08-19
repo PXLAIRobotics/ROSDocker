@@ -1,6 +1,10 @@
 /**
  * To compile run:
- * $ g++ -Wall -pedantic -std=c++11 ThreadedTask.cpp -o ThreadedTask
+ * $ g++ -Wall -pedantic -std=c++14 ThreadedTask.cpp -o ThreadedTask -pthread
+ *
+ * Melodic has C++14 as a Targeted Languages!
+ * Source: 
+ *    https://www.ros.org/reps/rep-0003.html#melodic-morenia-may-2018-may-2023
  */
 #include <iostream>
 #include <thread>
