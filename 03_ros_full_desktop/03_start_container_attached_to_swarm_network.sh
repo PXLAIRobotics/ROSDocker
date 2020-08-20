@@ -41,7 +41,6 @@ if [ $vendor == "NVIDIA" ]; then
         --volume="$XAUTH:$XAUTH" \
         --gpus all \
         --publish-all=true \
-        --device=/dev/video0:/dev/video0 \
         --network=my_ros_overlay_network \
         pxl_air_ros_full_desktop:latest \
         bash
