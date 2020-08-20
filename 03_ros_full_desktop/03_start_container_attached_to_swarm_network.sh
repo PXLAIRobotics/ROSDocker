@@ -13,6 +13,7 @@ fi
 if  docker swarm ca > /dev/null 2>&1; then
     container_hostname="swarm_master"
 else
+    # If it's a worker, generate a random hostname
     container_hostname=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 fi
 

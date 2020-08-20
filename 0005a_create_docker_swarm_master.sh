@@ -17,7 +17,7 @@ else
     echo "SWARM SUCCESSFULLY CREATED."
 fi
 
-# Create an overlay network
+# Create an attachable overlay network
 if ! docker network create -d overlay --attachable my_ros_overlay_network > docker_swarm_network.log; then
     echo "[STOPPING] COULDN'T CREATE AN OVERLAY NETWORK!"
     exit -1
@@ -25,6 +25,6 @@ else
     echo "OVERLAY NETWORK SUCCESSFULLY CREATED."
 fi
 
-# Show the output (This should include the join command.)
+# Show the output (This will include the join command.)
 echo "SHOWING JOIN COMMAND:"
 cat ./docker_swarm_master.log
