@@ -13,6 +13,7 @@ RUN apt-get update \
         && apt-get install -y ros-melodic-turtlebot3* \
         && apt-get install -y ros-melodic-gmapping \
         && apt-get install -y python-rosdep \
+        && apt-get install -y python-pip \
         && rosdep init \
         && apt-get autoremove -y \
         && rm -rf /var/lib/apt/lists/* 

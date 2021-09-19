@@ -1,19 +1,19 @@
 #!/bin/bash
 
-xhost +local:docker
-
-# --device=/dev/video0:/dev/video0
-# For non root usage:
-# RUN sudo usermod -a -G video developer
+if ! command -v glxinfo &> /dev/null
+then
+    echo "glxinfo command  not found! Execute \'sudo apt install mesa-utils\' to install it."
+    exit
+fi
 
 vendor=`glxinfo | grep vendor | grep OpenGL | awk '{ print $4 }'`
 
+
 if [ $vendor == "NVIDIA" ]; then
-    docker run -it \
-        --name ros_full_desktop \
-        --hostname basesation \
+    docker run -it --rm \
+        --name base_nvidia_image \
+        --hostname base_nvidia_image \
         --device /dev/snd \
-        --rm \
         --env="DISPLAY" \
         --env="QT_X11_NO_MITSHM=1" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
@@ -21,15 +21,13 @@ if [ $vendor == "NVIDIA" ]; then
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \
         -v `pwd`/../Projects/catkin_ws_src:/home/user/Projects/catkin_ws/src \
         -env="XAUTHORITY=$XAUTH" \
-        --volume="$XAUTH:$XAUTH" \
         --gpus all \
-        --device=/dev/video0:/dev/video0 \
         pxl_air_ros_full_desktop:latest \
         bash
 else
     docker run --privileged -it --rm \
-        --name ros_full_desktop \
-        --hostname basesation \
+        --name base_opengl_image \
+        --hostname base_opengl_image \
         --volume=/tmp/.X11-unix:/tmp/.X11-unix \
         -v `pwd`/../Commands/bin:/home/user/bin \
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \

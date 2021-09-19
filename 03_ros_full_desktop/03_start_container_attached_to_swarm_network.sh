@@ -17,8 +17,6 @@ else
     container_hostname=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 fi
 
-xhost +local:docker
-
 # --device=/dev/video0:/dev/video0
 # For non root usage:
 # RUN sudo usermod -a -G video developer
@@ -38,7 +36,6 @@ if [ $vendor == "NVIDIA" ]; then
         -v `pwd`/../ExampleCode:/home/user/ExampleCode \
         -v `pwd`/../Projects/catkin_ws_src:/home/user/Projects/catkin_ws/src \
         --env="XAUTHORITY=$XAUTH" \
-        --volume="$XAUTH:$XAUTH" \
         --gpus all \
         --publish-all=true \
         --network=my_ros_overlay_network \
